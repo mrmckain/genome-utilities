@@ -1,0 +1,48 @@
+####################
+#
+# Example Vanilla Universe Job
+# Multi-CPU HTCondor submit description file
+#
+####################
+universe                 = vanilla
+getenv                   = true
+
+accounting_group         = $ENV(CONDOR_GROUP)
+condor_output            = /home/mmckain/Transposome/Prepped_Data/SAMPLE/
+
+#request_cpus             = 8 
+#request_memory           = 3G
+#request_disk             = 5G
+request_cpus             = $(cpu_req)
+request_memory           = $(memory_req)
+request_disk             = $(disk_req)
+#requirements = TARGET.machine == "pegasus.ddpsc.org"
+notification             = Complete
+
+ID                       = $(Cluster).$(Process)
+output                   = $(condor_output)$(run_type).$(ID).out
+error                    = $(condor_output)$(run_type).$(ID).err
+log                      = $(condor_output)$(run_type).$(ID).log
+
+############################################
+
+executable       = /home/kzudock/Transposome-master/bin/transposome
+arguments	 = --config CONFIG
+
+transfer_executable      = False
+should_transfer_files    = YES
+when_to_transfer_output  = ON_EXIT
+transfer_output_files    = SAMPLE_transposome_out
+transfer_input_files     = FILE
+
+
+run_type                 = transposome
+cpu_req                  = 20
+memory_req               = 10G
+disk_req                 = 20G
+
+##  Do not edit  ##
+###################
+
+queue
+

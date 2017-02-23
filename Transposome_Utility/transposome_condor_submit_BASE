@@ -1,0 +1,22 @@
+####################
+#
+# Example Vanilla Universe Job
+# Multi-CPU HTCondor submit description file
+#
+####################
+
+universe         = vanilla
+getenv           = true
+executable       = run_prep.sh
+arguments        = X
+log              = SAMPLE.log
+output           = SAMPLE.out
+error            = SAMPLE.error
+machine_count	 = 1
+request_cpus     = 4
+
+##  Do not edit  ##
+accounting_group = $ENV(CONDOR_GROUP)
+###################
+
+queue
